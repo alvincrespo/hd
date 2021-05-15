@@ -1,0 +1,88 @@
+name: "Deploy to Heroku"
+description: "Deploy to Heroku with ease."
+inputs:
+  heroku_api_key:
+    description: "Authenticates your account. This is on Heroku within your account settings."
+    required: true
+  heroku_email:
+    description: "Your Heroku account's email address."
+    required: true
+  heroku_app_name:
+    description: "The name of your app."
+    required: true
+  buildpack:
+    description: "(optional) A buildback to use with your application."
+    required: false
+  branch:
+    description: "The branch to deploy to Heroku."
+    default: "HEAD"
+    required: false
+  dontuseforce:
+    description: "Disables force pushing during deploy."
+    default: "false"
+    required: false
+  dontautocreate:
+    description: "Disables automatically creating a new app."
+    default: "false"
+    required: false
+  usedocker:
+    description: "Configures deploy to use Dockerfile in project root."
+    default: "false"
+    required: false
+  docker_heroku_process_type:
+    description: "Defines the process type (web, worker, etc)."
+    default: "web"
+    required: false
+  docker_build_args:
+    description: "Arguments to pass to the Docker build."
+    required: false
+  appdir:
+    description: "Specify the subdirectory of your app."
+    default: ""
+    required: false
+  healthcheck:
+    description: "Specify a URL for a health check."
+    required: false
+    default: ""
+  checkstring:
+    description: "Define the value to check for during the healthcheck."
+    required: false
+    default: ""
+  delay:
+    description: "Configure a delay to perform the health check."
+    required: false
+    default: "0"
+  procfile:
+    description: "Contents of the Procfile to save and deploy"
+    required: false
+    default: ""
+  rollbackonhealthcheckfailed:
+    description: "When set to true this will attempt to rollback to the previous release if the healthcheck fails"
+    required: false
+    default: "false"
+  env_file:
+    description: "Path to an localized env file"
+    required: false
+    default: ""
+  justlogin:
+    description: "Set to true if you want the action to just login to Heroku and nothing else"
+    required: false
+    default: "false"
+  region:
+    description: "The region in which you would like to deploy a server"
+    required: false
+    default: ""
+  stack:
+    description: "Set stack of your heroku app if you need to change.Default : heroku-20"
+    required: false
+    default: ""
+  team:
+    description: "If deploying to an organization, then specify the name of the team or organization here"
+    required: false
+    default: ""
+outputs:
+  status:
+    description: "The Success/Failure of the action"
+runs:
+  using: "node12"
+  main: "index.js"
