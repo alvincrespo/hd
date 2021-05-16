@@ -1,6 +1,6 @@
 # HD
 
-Github Action to simplify github deploys.
+Github Action for [Heroku](https://www.heroku.com/) deployment.
 
 ## Getting Started
 
