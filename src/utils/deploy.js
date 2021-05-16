@@ -1,8 +1,11 @@
+const { execSync } = require("child_process");
+
 const MAX_BUFFER = 104857600;
 
 const pushContainer = (dockerHerokuProcessType, dockerBuildArgs, app_name, appdir) => {
   const command = `heroku container:push ${dockerHerokuProcessType} --app ${app_name} ${dockerBuildArgs}`;
   const options = appdir ? { cwd: appdir } : null;
+
   execSync(command, options);
 };
 
@@ -32,11 +35,13 @@ const getRemoteBranch = () => {
 
 const deployBranch = (branch, force) => {
   const command = `git push heroku ${branch}:refs/heads/main ${force}`;
+
   execSync(command, { maxBuffer: MAX_BUFFER });
 };
 
 const deployMaster = (appdir, branch, force) => {
   const command = `git push ${force} heroku \`git subtree split --prefix=${appdir} ${branch}\`:refs/heads/main`;
+
   execSync(command, { maxBuffer: MAX_BUFFER });
 };
 
@@ -55,10 +60,12 @@ const deployWithGit = (app_name, appdir, branch, force) => {
 export const deploy = (config) => {
   if (usedocker) {
     const { app_name, appdir, dockerHerokuProcessType, dockerBuildArgs } = config;
+
     deployWithDocker(app_name, appdir, dockerHerokuProcessType, dockerBuildArgs);
   } else {
     const { dontuseforce, app_name, branch, appdir } = config;
     const force = !dontuseforce ? "--force" : "";
+
     deployWithGit(app_name, appdir, branch, force);
   }
 };

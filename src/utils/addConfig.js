@@ -1,8 +1,12 @@
+const { execSync } = require("child_process");
+
+const PREFIX = "HD_";
+
 const loadEnvironmentVariables = () => {
   const envVars = [];
 
   for (let key in process.env) {
-    if (key.startsWith("HD_")) {
+    if (key.startsWith(PREFIX)) {
       envVars.push(key.substring(3) + "='" + process.env[key] + "'");
     }
   }
@@ -16,6 +20,7 @@ const loadEnvironmentVariablesFromFile = (env_file, appdir) => {
   if (env_file) {
     const env = fs.readFileSync(path.join(appdir, env_file), "utf8");
     const variables = require("dotenv").parse(env);
+
     for (let key in variables) {
       envVars.push(key + "=" + variables[key]);
     }
