@@ -10,7 +10,7 @@ const loadEnvironmentVariables = () => {
   return envVars;
 }
 
-const loadEnvironmentVariablesFromFile = (env_file) => {
+const loadEnvironmentVariablesFromFile = (env_file, appdir) => {
   const envVars = [];
 
   if (env_file) {
@@ -26,7 +26,7 @@ const loadEnvironmentVariablesFromFile = (env_file) => {
 
 export const addConfig = ({ app_name, env_file, appdir }) => {
   const envVars = loadEnvironmentVariables();
-  const envVarsFromFile = loadEnvironmentVariablesFromFile(env_file);
+  const envVarsFromFile = loadEnvironmentVariablesFromFile(env_file, appdir);
   const configVars = [...envVars, ...envVarsFromFile];
 
   if (configVars.length !== 0) {
